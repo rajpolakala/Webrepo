@@ -96,3 +96,16 @@ IntelliJ IDEA Tricks to Boost Productivity for Java Devs (10$)
 
 https://www.udemy.com/intellij-idea-secrets-double-your-coding-speed-in-2-hours/?couponCode=JENKINS_STUDENT
 
+
+
+Docker and ssh keys
+
+URL of the Github account to fork:
+hgps://github.com/jleetutorial/dockerapp
+Checking for exis,ng SSH keys:
+hgps://help.github.com/ar=cles/checking-for-exis=ng-ssh-keys/
+Genera,ng a new SSH key and adding it to the ssh-agent:
+hgps://help.github.com/ar=cles/genera=ng-a-new-ssh-key-and-adding-it-to-thessh-
+agent
+Adding a new SSH key to your GitHub account:
+hgps://help.github.com/ar=cles/adding-a-new-ssh-key-to-your-github-account/
