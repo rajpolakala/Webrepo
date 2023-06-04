@@ -1,3 +1,4 @@
+# how to execute python3 weekly_pr_summary.py frommail@gmail.com base64convertedpassword tomail@
 import requests
 from datetime import datetime, timedelta
 import smtplib
@@ -6,7 +7,7 @@ from email.mime.text import MIMEText
 import argparse
 import base64
 
-github_token = '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'
+github_token = '_pat_11AGQCT5I0daMNe4QW31uW_6mWmL4BZjclmnysxZeiNwbVc9zGg7xAZRXYHuqhvkERTYLZVCTG55P9SBOG'
 github_user = 'rajpolakala'
 github_repo = 'Webrepo'
 
