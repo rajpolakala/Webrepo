@@ -1,0 +1,29 @@
+# Set variables
+templateDir="${basedir}/config/weblogic/secDomain/scripts"
+cmdir="${cmdir:-/path/to/default/cmdir}"
+secure_port="1234"
+port="5678"
+jrockit_port="9012"
+server_protocol="t3"
+
+# Copy and filter files
+cp -f "${templateDir}/setAppEnv.sh.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/setAppEnv.sh"
+sed -i "s/SECURE_LISTEN_PORT/${secure_port}/g" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/setAppEnv.sh"
+sed -i "s/LISTEN_PORT/${port}/g" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/setAppEnv.sh"
+sed -i "s/JROCKIT_LISTEN_PORT/${jrockit_port}/g" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/setAppEnv.sh"
+sed -i "s/THE_SERVER/SecurityServer/g" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/setAppEnv.sh"
+sed -i "s/SERVER_PROTOCOL/${server_protocol}/g" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/setAppEnv.sh"
+
+cp -f "${templateDir}/setDomainEnv.sh.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/setDomainEnv.sh"
+cp -f "${templateDir}/startSecurity.sh.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/startSecurity.sh"
+cp -f "${templateDir}/startWebLogic.sh.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/startWebLogic.sh"
+cp -f "${templateDir}/stopWebLogic.sh.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/stopWebLogic.sh"
+cp -f "${templateDir}/shutdown.py.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/shutdown.py"
+cp -f "${templateDir}/restart.sh.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/restart.sh"
+
+cp -f "${templateDir}/windows/stopWebLogic.cmd.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/stopWebLogic.cmd"
+cp -f "${templateDir}/windows/startWebLogic.cmd.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/startWebLogic.cmd"
+cp -f "${templateDir}/windows/startSecurity.cmd.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/startSecurity.cmd"
+cp -f "${templateDir}/windows/setDomainEnv.cmd.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/setDomainEnv.cmd"
+cp -f "${templateDir}/windows/setAppEnv.cmd.template" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/setAppEnv.cmd"
+sed -i "s/C:\\\\opt\\\\bea\\\\10.3\\\\wlserver_10.3/${wl.home}/g" "${cmdir}/build/${site}/${kitName}/scripts/secDomain/setDomainEnv.cmd"

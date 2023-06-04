@@ -1,0 +1,111 @@
+
+
+Checking for existing SSH keys:
+
+https://help.github.com/articles/checking-for-existing-ssh-keys/
+
+Generating a new SSH key and adding it to the ssh-agent:
+
+https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+
+Adding a new SSH key to your GitHub account:
+
+https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+
+wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -
+ 
+echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list
+ 
+apt-get update
+ 
+apt-get install jenkins
+
+
+
+Text Direction: Install Jenkins Slave Agents in the Cloud
+Section 5, Lecture 38
+Install Jenkins Agent on the Slave Node
+
+----------------------------------------------------------------
+running on master node:
+
+sudo -iu jenkins
+ 
+ssh root@<slave_ip> mkdir -p .ssh
+ 
+cat .ssh/id_rsa.pub | ssh root@<slave_ip> 'cat >> .ssh/authorized_keys'
+ 
+running on slave node:
+
+mkdir ~/bin
+ 
+cd bin
+ 
+wget http://<master_ip>:8080/jnlpJars/slave.jar
+ 
+sudo apt-get install default-jre 
+start slave agent: 
+
+ssh root@<slave_ip> java -jar /root/bin/slave.jar 
+
+
+
+
+
+
+
+
+
+
+
+Install Jenkins Agent on the Slave Node
+running on master node:
+
+sudo -iu jenkins
+ 
+ssh root@<slave_ip> mkdir -p .ssh
+ 
+cat .ssh/id_rsa.pub | ssh root@<slave_ip> 'cat >> .ssh/authorized_keys'
+ 
+running on slave node:
+
+mkdir ~/bin
+ 
+cd bin
+ 
+wget http://<master_ip>:8080/jnlpJars/slave.jar
+ 
+sudo apt-get install default-jre 
+start slave agent: 
+
+ssh root@<slave_ip> java -jar /root/bin/slave.jar
+
+
+
+
+Udemy coupons -
+
+
+I am happy to offer a $10 discount to my existing students for all my other Udemy courses. Happy learning!
+
+The Complete Docker Course for DevOps and Developers (10$, Udemy Best Seller in Docker category)
+
+https://www.udemy.com/docker-tutorial-for-devops-run-docker-containers/?couponCode=JENKINS_STUDENT
+
+IntelliJ IDEA Tricks to Boost Productivity for Java Devs (10$)
+
+https://www.udemy.com/intellij-idea-secrets-double-your-coding-speed-in-2-hours/?couponCode=JENKINS_STUDENT
+
+
+
+Docker and ssh keys
+
+URL of the Github account to fork:
+hgps://github.com/jleetutorial/dockerapp
+Checking for exis,ng SSH keys:
+hgps://help.github.com/ar=cles/checking-for-exis=ng-ssh-keys/
+Genera,ng a new SSH key and adding it to the ssh-agent:
+hgps://help.github.com/ar=cles/genera=ng-a-new-ssh-key-and-adding-it-to-thessh-
+agent
+Adding a new SSH key to your GitHub account:
+hgps://help.github.com/ar=cles/adding-a-new-ssh-key-to-your-github-account/
