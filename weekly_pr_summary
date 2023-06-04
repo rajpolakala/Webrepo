@@ -1,0 +1,69 @@
+import requests
+from datetime import datetime, timedelta
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import argparse
+import base64
+
+github_token = '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'
+github_user = 'rajpolakala'
+github_repo = 'Webrepo'
+
+def get_pull_requests(token, user, repo):
+    seven_days_ago = (datetime.now() - timedelta(days=7)).isoformat()
+    url = f'https://api.github.com/repos/{user}/{repo}/pulls'
+    headers = {'Authorization': f'token {token}', 'Accept': 'application/vnd.github.v3+json'}
+
+    response = requests.get(url, headers=headers, params={"state": "all"})
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Failed to retrieve pull requests with status code: {response.status_code}")
+        print(f"Response: {response.text}")
+        return None
+
+def send_email(user, password, to, repo, opened, closed, draft):
+    msg = MIMEMultipart()
+    msg['From'] = user
+    msg['To'] = to
+    msg['Subject'] = f'Pull request summary for {repo}'
+    body = f"""
+    Here is the pull request summary for the past week for the repository {repo}:
+
+    Opened pull requests: {len(opened)}
+    Closed pull requests: {len(closed)}
+    Draft pull requests: {len(draft)}
+    """
+    msg.attach(MIMEText(body, 'plain'))
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(user, password)
+    text = msg.as_string()
+    server.sendmail(user, to, text)
+    server.quit()
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('email_user', help='The email address to use for sending the email.')
+    parser.add_argument('email_password', help='The base64 encoded password for the email address.')
+    parser.add_argument('email_to', help='The email address to send the email to.')
+    args = parser.parse_args()
+    password = base64.b64decode(args.email_password).decode()
+
+
+    pulls = get_pull_requests(github_token, github_user, github_repo)
+    if pulls is not None:
+        seven_days_ago = (datetime.now() - timedelta(days=7)).isoformat()
+        opened_pulls = [pull for pull in pulls if pull['state'] == 'open' and pull['created_at'] > seven_days_ago]
+        closed_pulls = [pull for pull in pulls if pull['state'] == 'closed' and pull['closed_at'] > seven_days_ago]
+        draft_pulls = [pull for pull in pulls if pull['draft'] and pull['created_at'] > seven_days_ago]
+
+        send_email(args.email_user, password, args.email_to, github_repo, opened_pulls, closed_pulls, draft_pulls)
+    else:
+        print('Failed to retrieve pull requests')
+
+if __name__ == "__main__":
+    main()
