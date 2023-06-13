@@ -1,6 +1,8 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" />
-
+16:52:44  "E:\Jenkins\b12a0dfb\workspace\_7241_DOCRDR_feature-condor-7241\EDMDocumentWS.sln" (clean;restore;rebuild target) (1) ->
+16:52:44  "E:\Jenkins\b12a0dfb\workspace\_7241_DOCRDR_feature-condor-7241\EDMDocumentWS\EDMDocumentWS.vbproj" (Clean target) (2) ->
+16:52:44    E:\Jenkins\b12a0dfb\workspace\_7241_DOCRDR_feature-condor-7241\EDMDocumentWS\EDMDocumentWS.vbproj(188,11): error MSB4226: The imported project "E:\tools\VS2019\MSBuild\Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" was not found. Also, tried to find "Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" in the fallback search path(s) for $(MSBuildExtensionsPath32) - "C:\Program Files (x86)\MSBuild" . These search paths are defined in "E:\tools\VS2019\MSBuild\Current\Bin\MSBuild.exe.Config". Confirm that the path in the <Import> declaration is correct, and that the file exists on disk in one of the search paths.
 
 pipeline {
     agent any
