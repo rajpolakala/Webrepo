@@ -1,4 +1,8 @@
-  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+<Import Project="E:\tools\VS2019\MSBuild\Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" />
+<Import Project="E:\tools\VS2019\MSBuild\Current\Bin\Microsoft.WebApplication.targets" />
+
+
+<Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" />
 16:52:44  "E:\Jenkins\b12a0dfb\workspace\_7241_DOCRDR_feature-condor-7241\EDMDocumentWS.sln" (clean;restore;rebuild target) (1) ->
 16:52:44  "E:\Jenkins\b12a0dfb\workspace\_7241_DOCRDR_feature-condor-7241\EDMDocumentWS\EDMDocumentWS.vbproj" (Clean target) (2) ->
