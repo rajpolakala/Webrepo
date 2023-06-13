@@ -1,6 +1,32 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" />
 
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('Check Targets Files') {
+            steps {
+                script {
+                    def msbuildBinPath = bat(returnStdout: true, script: 'echo %MSBuildBinPath%').trim()
+                    def msbuildExtensionsPath = bat(returnStdout: true, script: 'echo %MSBuildExtensionsPath32%').trim()
+
+                    def vbTargetsFile = "${msbuildBinPath}\\Microsoft.VisualBasic.targets"
+                    def webAppTargetsFile = "${msbuildExtensionsPath}\\Microsoft\\VisualStudio\\v14.0\\WebApplications\\Microsoft.WebApplication.targets"
+
+                    def vbTargetsExist = fileExists(vbTargetsFile)
+                    def webAppTargetsExist = fileExists(webAppTargetsFile)
+
+                    echo "Microsoft.VisualBasic.targets exists: ${vbTargetsExist}"
+                    echo "Microsoft.WebApplication.targets exists: ${webAppTargetsExist}"
+                }
+            }
+        }
+    }
+}
+
+
 pipeline {
     agent {
         label 'MSBUILD19'
