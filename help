@@ -1,6 +1,22 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" />
+
+pipeline{
+    agent { label 'MSBUILD19'} 
+    stages {
+        stage('Clone') {
+            steps {
+                checkout scm
+          }
+       }
+        stage('Build') {
+            steps {
+                bat "MSBUILD ${workspace}\\EDMDocumentWS.sln /p:platform=\"Any CPU\" /t:clean;restore;rebuild"               
+            }
+        }
   
+    }       
+}
 
 Checking for existing SSH keys:
 
