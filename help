@@ -1,10 +1,37 @@
-15:19:31  Done Building Project "E:\Jenkins\b12a0dfb\workspace\DOCRDR-7241\sampleDotNet\HelloWorld.csproj" (default targets) -- FAILED.
-15:19:31  
-15:19:31  Build FAILED.
-15:19:31  
-15:19:31  "E:\Jenkins\b12a0dfb\workspace\DOCRDR-7241\sampleDotNet\HelloWorld.csproj" (default target) (1) ->
-15:19:31  (GetReferenceAssemblyPaths target) -> 
-15:19:31    E:\tools\VS2019\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(1217,5): error MSB3971: The reference assemblies for ".NETFramework,Version=v5.0" were not found. You might be using an older .NET SDK to target .NET 5.0 or higher. Update Visual Studio and/or your .NET SDK. [E:\Jenkins\b12a0dfb\workspace\DOCRDR-7241\sampleDotNet\HelloWorld.csproj]
-15:19:31  
-15:19:31      0 Warning(s)
-15:19:31      1 Error(s)
+pipeline {
+  agent any
+
+  stages {
+    stage('Check .NET SDK Version') {
+      steps {
+        script {
+          def dotnetSdkVersion = ""
+          def dotnetSdkPath = ""
+          def versionCommand = isUnix() ? 'dotnet --version' : 'dotnet --version'
+          def sdkVersionOutput = bat(returnStdout: true, script: versionCommand).trim()
+
+          if (sdkVersionOutput) {
+            dotnetSdkVersion = sdkVersionOutput
+          } else {
+            echo "Failed to retrieve .NET SDK version."
+          }
+
+          def pathCommand = isUnix() ? 'dotnet --list-sdks' : 'dotnet --list-sdks'
+          def sdkPathOutput = bat(returnStdout: true, script: pathCommand).trim()
+
+          if (sdkPathOutput) {
+            def lines = sdkPathOutput.readLines()
+            if (lines.size() > 0) {
+              dotnetSdkPath = lines[-1].trim()
+            }
+          } else {
+            echo "Failed to retrieve .NET SDK path."
+          }
+
+          echo "Installed .NET SDK version: ${dotnetSdkVersion}"
+          echo "Installed .NET SDK path: ${dotnetSdkPath}"
+        }
+      }
+    }
+  }
+}
