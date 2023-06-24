@@ -1,16 +1,23 @@
-15:04:37  Project "E:\Jenkins\b12a0dfb\workspace\DOCRDR-7241\sampleDotNet\HelloWorld.csproj" on node 1 (default targets).
-15:04:37  E:\tools\VS2019\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(1217,5): error MSB3971: The reference assemblies for ".NETFramework,Version=v5.0" were not found. You might be using an older .NET SDK to target .NET 5.0 or higher. Update Visual Studio and/or your .NET SDK. [E:\Jenkins\b12a0dfb\workspace\DOCRDR-7241\sampleDotNet\HelloWorld.csproj]
-15:04:37  _CleanRecordFileWrites:
-15:04:37    Creating directory "obj\Debug\net5.0\".
-15:04:37  Done Building Project "E:\Jenkins\b12a0dfb\workspace\DOCRDR-7241\sampleDotNet\HelloWorld.csproj" (default targets) -- FAILED.
-15:04:37  
-15:04:37  Build FAILED.
-15:04:37  
-15:04:37  "E:\Jenkins\b12a0dfb\workspace\DOCRDR-7241\sampleDotNet\HelloWorld.csproj" (default target) (1) ->
-15:04:37  (GetReferenceAssemblyPaths target) -> 
-15:04:37    E:\tools\VS2019\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(1217,5): error MSB3971: The reference assemblies for ".NETFramework,Version=v5.0" were not found. You might be using an older .NET SDK to target .NET 5.0 or higher. Update Visual Studio and/or your .NET SDK. [E:\Jenkins\b12a0dfb\workspace\DOCRDR-7241\sampleDotNet\HelloWorld.csproj]
-15:04:37  
-15:04:37      0 Warning(s)
-15:04:37      1 Error(s)
-15:04:37  
-15:04:37  Time Elapsed 00:00:00.72
+pipeline {
+  agent any
+
+  stages {
+    stage('Check .NET SDK Version') {
+      steps {
+        script {
+          def dotnetSdkVersion = ""
+          def command = isUnix() ? 'dotnet --version' : 'dotnet --version'
+          def sdkVersionOutput = bat(returnStdout: true, script: command).trim()
+
+          if (sdkVersionOutput) {
+            dotnetSdkVersion = sdkVersionOutput
+          } else {
+            echo "Failed to retrieve .NET SDK version."
+          }
+
+          echo "Installed .NET SDK version: ${dotnetSdkVersion}"
+        }
+      }
+    }
+  }
+}
