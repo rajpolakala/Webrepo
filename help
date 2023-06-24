@@ -2,34 +2,14 @@ pipeline {
   agent any
 
   stages {
-    stage('Check .NET SDK Version') {
+    stage('Build') {
       steps {
         script {
-          def dotnetSdkVersion = ""
-          def dotnetSdkPath = ""
-          def versionCommand = isUnix() ? 'dotnet --version' : 'dotnet --version'
-          def sdkVersionOutput = bat(returnStdout: true, script: versionCommand).trim()
+          def msbuildPath = "E:\\tools\\VS2019\\MSBuild\\Current\\Bin\\MSBuild.exe"
+          def projectFilePath = "path/to/your/project.csproj"
 
-          if (sdkVersionOutput) {
-            dotnetSdkVersion = sdkVersionOutput
-          } else {
-            echo "Failed to retrieve .NET SDK version."
-          }
-
-          def pathCommand = isUnix() ? 'dotnet --list-sdks' : 'dotnet --list-sdks'
-          def sdkPathOutput = bat(returnStdout: true, script: pathCommand).trim()
-
-          if (sdkPathOutput) {
-            def lines = sdkPathOutput.readLines()
-            if (lines.size() > 0) {
-              dotnetSdkPath = lines[-1].trim()
-            }
-          } else {
-            echo "Failed to retrieve .NET SDK path."
-          }
-
-          echo "Installed .NET SDK version: ${dotnetSdkVersion}"
-          echo "Installed .NET SDK path: ${dotnetSdkPath}"
+          // Run the MSBuild command to build the project
+          bat "\"${msbuildPath}\" \"${projectFilePath}\" /p:Configuration=Release"
         }
       }
     }
