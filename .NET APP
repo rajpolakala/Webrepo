@@ -1,0 +1,52 @@
+Building .NET applications using MSBuild (Microsoft Build Engine) is a common practice in the .NET development ecosystem. MSBuild is the build platform used by Microsoft for compiling and building projects. Here's how you can use MSBuild to build .NET applications:
+
+1. **Command-Line Usage:**
+   MSBuild is typically used from the command-line interface. Open a command prompt or terminal and navigate to the directory containing your .NET solution or project file.
+
+2. **Build a Solution:**
+   To build a solution file (`.sln`), use the following command:
+
+   ```sh
+   msbuild YourSolution.sln
+   ```
+
+   This will build all projects within the solution.
+
+3. **Build a Project:**
+   To build a specific project within a solution, use the following command:
+
+   ```sh
+   msbuild YourProject.csproj
+   ```
+
+   Replace `YourProject.csproj` with the path to your project file.
+
+4. **Build Configuration and Target:**
+   You can specify the build configuration (Debug, Release, etc.) using the `/p:Configuration` parameter:
+
+   ```sh
+   msbuild YourProject.csproj /p:Configuration=Release
+   ```
+
+   You can also specify the target framework using the `/p:TargetFramework` parameter.
+
+5. **Additional Parameters:**
+   MSBuild provides various parameters for controlling the build process. For example:
+   - `/t:Target` to specify specific build targets.
+   - `/verbosity:level` to control the verbosity of output (quiet, minimal, normal, detailed, diagnostic).
+   - `/maxcpucount` to control the number of parallel build processes.
+
+6. **Output Location:**
+   By default, the output binaries are placed in the `bin` directory of your project. You can control the output location using the `/p:OutputPath` parameter:
+
+   ```sh
+   msbuild YourProject.csproj /p:OutputPath=CustomOutputDir
+   ```
+
+7. **MSBuild Tools Location:**
+   MSBuild is part of the .NET SDK, so it's available if you have .NET installed. You can find `MSBuild.exe` in the .NET SDK installation directory.
+
+8. **Using MSBuild with Continuous Integration:**
+   Jenkins has built-in support for building .NET applications using MSBuild. Configure your CI pipeline to use MSBuild based on the specific CI tool's documentation.
+
+Remember that MSBuild is highly customizable, and you can create custom build scripts or modify the build process using MSBuild targets and properties. Additionally, with the advent of the new .NET CLI, you might encounter scenarios where you use `dotnet build` or `dotnet publish` instead of MSBuild directly. The choice depends on your specific workflow and preferences.
