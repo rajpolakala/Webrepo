@@ -50,3 +50,34 @@ Building .NET applications using MSBuild (Microsoft Build Engine) is a common pr
    Jenkins has built-in support for building .NET applications using MSBuild. Configure your CI pipeline to use MSBuild based on the specific CI tool's documentation.
 
 Remember that MSBuild is highly customizable, and you can create custom build scripts or modify the build process using MSBuild targets and properties. Additionally, with the advent of the new .NET CLI, you might encounter scenarios where you use `dotnet build` or `dotnet publish` instead of MSBuild directly. The choice depends on your specific workflow and preferences.
+
+To integrate building .NET applications using MSBuild into Jenkins, you can use the "MSBuild" plugin, which provides Jenkins with the capability to invoke MSBuild commands as build steps. Here's how to set it up:
+
+1. **Install the MSBuild Plugin:**
+   - Log in to your Jenkins instance.
+   - Navigate to "Manage Jenkins" > "Manage Plugins."
+   - In the "Available" tab, search for "MSBuild Plugin."
+   - Check the checkbox next to the plugin and click "Install without restart."
+
+2. **Create or Configure a Jenkins Job:**
+   - Create a new Jenkins job or edit an existing one.
+   - Configure the job settings as needed (source code repository, triggers, etc.).
+
+3. **Add an MSBuild Build Step:**
+   - Scroll down to the "Build" section of the job configuration.
+   - Click on the "Add build step" dropdown and select "Build a Visual Studio project or solution using MSBuild."
+
+4. **Configure the MSBuild Step:**
+   - Specify the path to the solution or project file you want to build.
+   - Adjust any additional parameters like build configuration, target framework, and MSBuild version if necessary.
+   - Configure other build step settings like whether to use a custom workspace or a specific node for the build.
+
+5. **Save and Run the Job:**
+   - Save the job configuration.
+   - Click "Build Now" to trigger a build using the configured MSBuild step.
+
+The MSBuild plugin allows you to define multiple build steps, each corresponding to a different project or solution within your repository.
+
+By using this plugin, Jenkins will automatically invoke MSBuild to build your .NET applications as part of the build process. It's a convenient way to integrate your .NET builds into your Jenkins workflow without needing to manually execute MSBuild commands from the command line.
+
+Please note that Jenkins plugins and UI may evolve over time, so the exact steps and labels in the UI might vary slightly. Always refer to the latest Jenkins documentation for accurate information and guidance on plugin usage.
