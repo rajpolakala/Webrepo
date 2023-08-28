@@ -81,3 +81,60 @@ The MSBuild plugin allows you to define multiple build steps, each corresponding
 By using this plugin, Jenkins will automatically invoke MSBuild to build your .NET applications as part of the build process. It's a convenient way to integrate your .NET builds into your Jenkins workflow without needing to manually execute MSBuild commands from the command line.
 
 Please note that Jenkins plugins and UI may evolve over time, so the exact steps and labels in the UI might vary slightly. Always refer to the latest Jenkins documentation for accurate information and guidance on plugin usage.
+
+
+
+
+Sure, I can guide you through deploying a .NET application to an IIS server manually and then automating the deployment using Jenkins.
+
+### Manual Deployment to IIS Server:
+
+1. **Build Your Application:**
+   - Use MSBuild to build your .NET application as discussed earlier.
+
+2. **Publish the Application:**
+   - Use the `dotnet publish` command to generate the necessary files for deployment.
+   - For example:
+     ```sh
+     dotnet publish -c Release -o PublishOutput
+     ```
+
+3. **Copy Files to IIS Server:**
+   - Copy the published files to a directory on your IIS server.
+   - Ensure that the IIS user has necessary permissions to access the files.
+
+4. **Configure IIS:**
+   - On the IIS server, open the IIS Manager.
+   - Create a new site or use an existing one.
+   - Set the site's physical path to the directory where you copied the published files.
+   - Configure bindings, hostnames, and other IIS settings as needed.
+
+5. **Test the Application:**
+   - Open a web browser and navigate to the URL of your IIS site to test the deployment.
+
+### Automating Deployment with Jenkins:
+
+To automate the deployment process using Jenkins, you can follow these steps:
+
+1. **Install Required Plugins:**
+   - Ensure you have the "MSBuild Plugin" installed as mentioned earlier.
+
+2. **Create or Configure a Jenkins Job:**
+   - Create a new Jenkins job or edit an existing one.
+   - Configure the job settings as needed (source code repository, triggers, etc.).
+
+3. **Add Build Steps:**
+   - Add an MSBuild build step to build your .NET application.
+   - Add an "Execute Windows batch command" build step to execute deployment commands on the IIS server.
+   - In the batch command, use `xcopy`, `robocopy`, or any other tool to copy the published files to the IIS server.
+
+4. **Configure IIS Remotely (Optional):**
+   - If you want to automate IIS configuration changes, you might need to use PowerShell scripts or other tools.
+   - Ensure the Jenkins agent has necessary permissions to execute IIS-related commands remotely.
+
+5. **Test the Automated Deployment:**
+   - Save the job configuration and trigger a build to test the automated deployment process.
+
+Please note that automating IIS configuration and deployment may involve more complex steps and security considerations. It's important to ensure that the Jenkins agent has the necessary permissions to access the IIS server and execute deployment tasks.
+
+Remember that both the manual and Jenkins-based deployment processes may vary based on your specific application, environment, and organization's practices. Always adapt the steps to match your requirements and refer to the official documentation for tools and platforms involved.
